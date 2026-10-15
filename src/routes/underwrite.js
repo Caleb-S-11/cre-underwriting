@@ -36,7 +36,7 @@ underwriteRouter.post('/', upload.array('files'), async (req, res) => {
     const result = await runUnderwritingPipeline({
       files: req.files,
       dealName,
-      email: email || 'noreply@example.com'
+      email
     });
 
     res.json(result);

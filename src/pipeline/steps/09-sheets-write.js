@@ -79,6 +79,16 @@ async function copyTemplate(templateFileId, dealName) {
   return response.data.id;
 }
 
+async function shareWithUser(fileId, email) {
+  const auth = initializeGoogleAuth();
+  const drive = google.drive({ version: 'v3', auth });
+
+  await drive.permissions.create({
+    fileId,
+    requestBody: { type: 'user', role: 'writer', emailAddress: email }
+  });
+}
+
 async function readTemplateStructure(spreadsheetId) {
   const auth = initializeGoogleAuth();
   const sheets = google.sheets({ version: 'v4', auth });
@@ -188,6 +198,11 @@ export async function copyAndMapTemplate(dealData) {
     // Copy template
     console.log('Copying template...');
     const newSheetId = await copyTemplate(templateFileId, dealData.dealName);
+
+    if (dealData.email) {
+      console.log('Sharing sheet with requester...');
+      await shareWithUser(newSheetId, dealData.email);
+    }
 
     // Read template structure
     console.log('Reading template structure...');

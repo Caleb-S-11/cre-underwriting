@@ -4,6 +4,14 @@ import { runUnderwritingPipeline } from '../pipeline/orchestrator.js';
 
 export const underwriteRouter = express.Router();
 
+underwriteRouter.use((req, res, next) => {
+  const secret = process.env.API_SECRET;
+  if (!secret || req.get('x-api-key') !== secret) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  next();
+});
+
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: {

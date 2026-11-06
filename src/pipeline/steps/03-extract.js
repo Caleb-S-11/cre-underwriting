@@ -1,4 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk';
+import { parseModelJson } from '../parse-json.js';
 
 const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY
@@ -64,7 +65,7 @@ export async function extractData(cleaned) {
         ]
       });
 
-      const extracted = JSON.parse(response.content[0].text);
+      const extracted = parseModelJson(response.content[0].text);
       extractions.push({
         source: pdf.originalname,
         type: 'pdf',
@@ -104,7 +105,7 @@ export async function extractData(cleaned) {
         ]
       });
 
-      const extracted = JSON.parse(response.content[0].text);
+      const extracted = parseModelJson(response.content[0].text);
       extractions.push({
         source: img.originalname,
         type: 'image',

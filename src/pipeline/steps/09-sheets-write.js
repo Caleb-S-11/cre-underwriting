@@ -1,5 +1,6 @@
 import { google } from 'googleapis';
 import Anthropic from '@anthropic-ai/sdk';
+import { parseModelJson } from '../parse-json.js';
 import fs from 'fs';
 import path from 'path';
 
@@ -163,7 +164,7 @@ async function mapDataToTemplate(template, dealData) {
     ]
   });
 
-  return JSON.parse(response.content[0].text);
+  return parseModelJson(response.content[0].text);
 }
 
 function colIndexToLetter(index) {

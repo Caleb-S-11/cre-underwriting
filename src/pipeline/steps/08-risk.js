@@ -1,4 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk';
+import { parseModelJson } from '../parse-json.js';
 
 const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY
@@ -30,7 +31,7 @@ export async function runRiskAgent(extraction, normalized, valuation, math) {
       ]
     });
 
-    const result = JSON.parse(response.content[0].text);
+    const result = parseModelJson(response.content[0].text);
     return result;
   } catch (error) {
     console.error('Risk Agent error:', error);

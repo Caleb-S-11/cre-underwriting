@@ -4,5 +4,9 @@ export function parseModelJson(response) {
     throw new Error(`Model returned no text (stop_reason: ${response.stop_reason})`);
   }
   const stripped = block.text.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
-  return JSON.parse(stripped);
+  try {
+    return JSON.parse(stripped);
+  } catch (error) {
+    throw new Error(`${error.message} (stop_reason: ${response.stop_reason})`);
+  }
 }

@@ -31,7 +31,7 @@ export async function runRiskAgent(extraction, normalized, valuation, math) {
       ]
     });
 
-    const result = parseModelJson(response.content[0].text);
+    const result = parseModelJson(response);
     return result;
   } catch (error) {
     console.error('Risk Agent error:', error);

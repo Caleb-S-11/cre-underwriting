@@ -164,7 +164,7 @@ async function mapDataToTemplate(template, dealData) {
     ]
   });
 
-  return parseModelJson(response.content[0].text);
+  return parseModelJson(response);
 }
 
 function colIndexToLetter(index) {

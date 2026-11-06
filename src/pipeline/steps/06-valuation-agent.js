@@ -36,7 +36,7 @@ export async function runValuationAgent(extraction, normalized) {
       ]
     });
 
-    const result = parseModelJson(response.content[0].text);
+    const result = parseModelJson(response);
     return result;
   } catch (error) {
     console.error('Valuation Agent error:', error);

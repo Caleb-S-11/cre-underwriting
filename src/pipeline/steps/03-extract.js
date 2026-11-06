@@ -65,7 +65,7 @@ export async function extractData(cleaned) {
         ]
       });
 
-      const extracted = parseModelJson(response.content[0].text);
+      const extracted = parseModelJson(response);
       extractions.push({
         source: pdf.originalname,
         type: 'pdf',
@@ -105,7 +105,7 @@ export async function extractData(cleaned) {
         ]
       });
 
-      const extracted = parseModelJson(response.content[0].text);
+      const extracted = parseModelJson(response);
       extractions.push({
         source: img.originalname,
         type: 'image',

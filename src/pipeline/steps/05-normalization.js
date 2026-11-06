@@ -35,7 +35,7 @@ export async function runNormalizationAgent(extraction) {
       ]
     });
 
-    const result = parseModelJson(response.content[0].text);
+    const result = parseModelJson(response);
     return result;
   } catch (error) {
     console.error('Normalization Agent error:', error);

@@ -6,7 +6,11 @@ export function parseModelJson(response) {
   const stripped = block.text.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
   try {
     return JSON.parse(stripped);
-  } catch (error) {
-    throw new Error(`${error.message} (stop_reason: ${response.stop_reason})`);
+  } catch {
+    try {
+      return JSON.parse(stripped.replace(/,(\s*[}\]])/g, '$1'));
+    } catch (error) {
+      throw new Error(`${error.message} (stop_reason: ${response.stop_reason})`);
+    }
   }
 }
